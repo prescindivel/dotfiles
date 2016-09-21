@@ -54,7 +54,7 @@ ZSH_CUSTOM=$HOME/.zsh-custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bgnotify git gitfast sublime nvm npm node bower grunt gulp rvm extract nyan)
+plugins=(bgnotify git gitfast sublime nvm npm node yo bower grunt gulp rvm extract nyan heroku)
 
 # User configuration
 
@@ -89,16 +89,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias popcorn="$HOME/popcorn-time/Popcorn-Time"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 export JAVA_HOME=$HOME/.java/jdk1.8.0_91
 export PATH=$JAVA_HOME/bin:$PATH
 
-export ANDROID_HOME=$HOME/Android/Sdk
+export ANDROID_HOME=$HOME/.android/android-sdk
 export PATH=$ANDROID_HOME:$PATH
 
-
+LD_LIBRARY_PATH=/usr/local/lib64/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
