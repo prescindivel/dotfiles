@@ -1,5 +1,6 @@
 export TERM="xterm-256color"
 
+
 setopt interactivecomments
 setopt CORRECT
 
@@ -54,7 +55,7 @@ ZSH_CUSTOM=$HOME/.zsh-custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bgnotify git gitfast sublime nvm npm node yo bower grunt gulp rvm extract nyan heroku)
+plugins=(bgnotify git gitfast git-flow git-flow-completion sublime nvm npm node yo bower grunt gulp rvm extract nyan heroku zsh-autosuggestions web-search)
 
 # User configuration
 
@@ -97,3 +98,6 @@ export PATH=$ANDROID_HOME:$PATH
 
 LD_LIBRARY_PATH=/usr/local/lib64/:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=085'
+
