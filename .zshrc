@@ -1,17 +1,29 @@
-export TERM="xterm-256color"
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user dir)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status vcs battery node_version ram)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=''
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_NODE_VERSION_FOREGROUND='0'
 
-
-setopt interactivecomments
-setopt CORRECT
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/victor/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="vicnoster"
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -46,30 +58,61 @@ ZSH_THEME="vicnoster"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.zsh-custom
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bgnotify git gitfast git-flow git-flow-completion sublime nvm npm node yo bower grunt gulp rvm extract nyan heroku zsh-autosuggestions web-search)
-
-# User configuration
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
+plugins=(
+  bower
+  bgnotify
+  emoji
+  extract
+  gem
+  ruby
+  git
+  gitfast
+  git-flow
+  go
+  golang
+  gulp
+  heroku
+  ng
+  node
+  nvm
+  npm
+  nyan
+  tmux
+  tmuxinator
+  web-search
+  yarn
+  t
+  zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+LANG="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -78,7 +121,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -88,16 +131,26 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias popcorn="$HOME/popcorn-time/Popcorn-Time"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
 
-export JAVA_HOME=$HOME/.java/jdk1.8.0_91
-export PATH=$JAVA_HOME/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
+#export POWERLINE_COMMAND=powerline
+#export POWERLINE_CONFIG_COMMAND=powerline-config
+#source $HOME/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
-export ANDROID_HOME=$HOME/.android/android-sdk
-export PATH=$ANDROID_HOME:$PATH
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-LD_LIBRARY_PATH=/usr/local/lib64/:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=085'
+export GOROOT=$HOME/.go
+export GOPATH=$HOME/projects/go
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin
 
+fortune | parrotsay
+
+export AWS_ACCESS_KEY_ID=AKIAIY7SSZOI2V6HQQGQ
+export AWS_SECRET_ACCESS_KEY=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
