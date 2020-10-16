@@ -90,7 +90,7 @@ SPACESHIP_CHAR_SUFFIX=" "
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git git-auto-fetch docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -121,9 +121,6 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export N_PREFIX="$HOME/n"
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
-
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
@@ -136,15 +133,34 @@ fi
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit's installer chunk
-zinit load zdharma/history-search-multi-word
+
+compdef _gnu_generic fd
+
+zinit ice atload"zpcdreplay" atclone'./zplug.zsh'
 zinit light zdharma/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+
+autoload -Uz compinit
+compinit
+
+zinit cdreplay -q
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node \
+
+### End of Zinit's installer chunk
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=magenta,bold"
 
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+export N_PREFIX="$HOME/n"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
+
+
 
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -152,3 +168,12 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+GIT_AUTO_FETCH_INTERVAL=120 #in seconds
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=/home/victor/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
+export PATH=~/.local/bin:$PATH
