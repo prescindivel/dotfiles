@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -18,7 +20,9 @@ SPACESHIP_PROMPT_ORDER=(
     git       # Git section (git_branch + git_status)
     hg        # Mercurial section (hg_branch  + hg_status)
     node      # Node.js section
+    pyenv     # Pyenv section
     docker    # Docker section
+    kubectl   # Kubectl context section
     exec_time # Execution time
     line_sep  # Line break
     vi_mode   # Vi-mode indicator
@@ -31,6 +35,9 @@ SPACESHIP_USER_SHOW=always
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
+
+SPACESHIP_KUBECTL_SHOW=true
+SPACESHIP_KUBECTL_VERSION_SHOW=false
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -90,7 +97,8 @@ SPACESHIP_CHAR_SUFFIX=" "
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-auto-fetch docker docker-compose)
+
+plugins=(aws bgnotify brew docker docker-compose git gitfast git-auto-fetch git-extras kubectl macos vscode web-search yarn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -118,23 +126,31 @@ export EDITOR='vim'
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias docker-prune-containers="docker container prune -f"
+alias docker-prune-images="docker image prune -fa"
+alias docker-prune-networks="docker network prune -f"
+alias docker-prune-volumes="docker volume prune -f"
+alias docker-prune-all="dcdn && docker-prune-containers && docker-prune-images && docker-prune-networks && docker-prune-volumes"
+
+source $HOME/antigen.zsh
+antigen init ~/.antigenrc
 
 export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
 
-source $HOME/antigen.zsh
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen apply
+export PATH="$PATH:$HOME/Library/Python/3.8/bin"
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=magenta"
 GIT_AUTO_FETCH_INTERVAL=120 #in seconds
 
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export PATH=~/bin:$PATH
+
+autoload -U compinit && compinit
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+alias dcli='docker-compose -f docker-compose.cli.yml run --rm'
